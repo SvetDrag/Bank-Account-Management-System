@@ -199,3 +199,17 @@ int login(){
 
     return 0; // Return false
 }
+
+// Function for verifying the PIN code before bank operation
+int verifyPin(){
+    int pinCheck;
+    printf("For confirmation, please enter your PIN code: ");
+    scanf("%d", &pinCheck);
+
+    if (pinCheck == users[currentUserIndex].pin) {
+        return 1; // PIN code is correct (verified)
+    } else {
+        printf("Грешен PIN код! Операцията е отказана.\n");
+        return 0; // PIN code is wrong
+    }
+}
