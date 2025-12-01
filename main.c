@@ -60,6 +60,8 @@ int main()
             {
                 // --> INSIDE MENU FOR BANK OPERATIONS <--
                 int userChoice;
+
+                //Loop while user choice is different from '0' (Exit from bank account system)
                 do
                 {
                     printf("\n--- USER MENU (%s) ---\n", users[currentUserIndex].accountNumber);
@@ -71,7 +73,8 @@ int main()
                     printf("0. Exit from the profile (Logout)\n");
                     printf("Your choice: ");
                     scanf("%d", &userChoice);
-
+                    
+                    //Invoke function for chosen bank operation and break
                     switch (userChoice)
                     {
                     case 1:
@@ -118,3 +121,31 @@ int main()
 
     return 0;
 }
+
+// --> Implementation of Functions <--
+
+// Function for read the file (data bases with all user information)
+void loadUsersFromFile(){
+    FILE *fp = fopen(FILENAME, "r"); //Open file for reading
+
+    if (fp == NULL) {
+        printf("The data file can't be found...\n");
+        return;
+    }
+
+    userCount = 0;
+    // Read each line from the data file until the end of the file is reached (EOF)
+    while (fscanf(fp, "%s %s %s %s %lf %d", 
+                  users[userCount].firstName,
+                  users[userCount].middleName,
+                  users[userCount].lastName,
+                  users[userCount].accountNumber,
+                  &users[userCount].balance,
+                  &users[userCount].pin) != EOF) {
+        userCount++;
+    }
+
+    fclose(fp); // CLOSE THE DATA FILE
+}
+
+
