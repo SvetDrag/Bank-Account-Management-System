@@ -213,3 +213,17 @@ int verifyPin(){
         return 0; // PIN code is wrong
     }
 }
+
+// Function for register a new user
+void registerUse(){
+    // -- //
+    // -- //
+    return;
+}
+
+// Function for check account balance
+void showBalance(){
+    printf("\nYour current balance is: %.2f euro.\n", users[currentUserIndex].balance);
+}
+
+
