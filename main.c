@@ -156,7 +156,7 @@ void saveUsersToFile()
 {
     FILE *fp = fopen(FILENAME, "w"); // Open file for writing
 
-        if (fp == NULL)
+    if (fp == NULL)
     {
         printf("ERROR with saving the data!\n");
         return;
@@ -174,4 +174,28 @@ void saveUsersToFile()
     }
 
     fclose(fp);
+}
+
+// Function for logIn to user account
+int login(){
+    char inputAcc[20];
+    int inputPin;
+
+    printf("\n--- LOGIN TO THE SYSTEM ---\n");
+    printf("Please enter a bank account number.: ");
+    scanf("%s", inputAcc);
+    printf("Please enter a PIN code: ");
+    scanf("%d", &inputPin);
+
+    // Loop through the user array to find a match
+    for (int i = 0; i < userCount; i++) {
+        // strcmp compare 2 Strings. If return 0 => they are equal.
+        if (strcmp(users[i].accountNumber, inputAcc) == 0 && users[i].pin == inputPin) {
+            currentUserIndex = i; // Remember witch user is enter
+            printf("You have successfully logged into your account!\n");
+            return 1; // Return true
+        }
+    }
+
+    return 0; // Return false
 }
