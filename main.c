@@ -177,7 +177,8 @@ void saveUsersToFile()
 }
 
 // Function for logIn to user account
-int login(){
+int login()
+{
     char inputAcc[20];
     int inputPin;
 
@@ -188,9 +189,11 @@ int login(){
     scanf("%d", &inputPin);
 
     // Loop through the user array to find a match
-    for (int i = 0; i < userCount; i++) {
+    for (int i = 0; i < userCount; i++)
+    {
         // strcmp compare 2 Strings. If return 0 => they are equal.
-        if (strcmp(users[i].accountNumber, inputAcc) == 0 && users[i].pin == inputPin) {
+        if (strcmp(users[i].accountNumber, inputAcc) == 0 && users[i].pin == inputPin)
+        {
             currentUserIndex = i; // Remember witch user is enter
             printf("You have successfully logged into your account!\n");
             return 1; // Return true
@@ -201,29 +204,53 @@ int login(){
 }
 
 // Function for verifying the PIN code before bank operation
-int verifyPin(){
+int verifyPin()
+{
     int pinCheck;
     printf("For confirmation, please enter your PIN code: ");
     scanf("%d", &pinCheck);
 
-    if (pinCheck == users[currentUserIndex].pin) {
+    if (pinCheck == users[currentUserIndex].pin)
+    {
         return 1; // PIN code is correct (verified)
-    } else {
+    }
+    else
+    {
         printf("Грешен PIN код! Операцията е отказана.\n");
         return 0; // PIN code is wrong
     }
 }
 
 // Function for register a new user
-void registerUse(){
+void registerUse()
+{
     // -- //
     // -- //
     return;
 }
 
 // Function for check account balance
-void showBalance(){
+void showBalance()
+{
     printf("\nYour current balance is: %.2f euro.\n", users[currentUserIndex].balance);
 }
 
+// Function for money deposit
+void depositMoney()
+{
+    double amount;
+    printf("\nEnter deposit amount: ");
+    scanf("%lf", &amount);
 
+    if (amount <= 0)
+    {
+        printf("Deposit amount can only be positive number!\n");
+        return;
+    }
+
+    // Verify PIN code
+    if (!verifyPin()) return;
+    users[currentUserIndex].balance += amount;
+    saveUsersToFile(); // Save the change to data file
+    printf("You have successfully entered %.2f euro. New balance: %.2f евро.\n", amount, users[currentUserIndex].balance);
+}
