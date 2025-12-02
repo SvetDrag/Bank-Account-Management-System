@@ -249,7 +249,8 @@ void depositMoney()
     }
 
     // Verify PIN code
-    if (!verifyPin()) return;
+    if (!verifyPin())
+        return;
 
     users[currentUserIndex].balance += amount;
     saveUsersToFile(); // Save the change to data file
@@ -257,26 +258,89 @@ void depositMoney()
 }
 
 // Function for money withdraw
-void withdrawMoney(){
+void withdrawMoney()
+{
     double amount;
     printf("\nEnter amount to withdraw: ");
     scanf("%lf", &amount);
 
-    if (amount <= 0){
+    if (amount <= 0)
+    {
         printf("Withdraw amount can only be positive number!");
         return;
     }
 
-    if (amount > users[currentUserIndex].balance) {
+    if (amount > users[currentUserIndex].balance)
+    {
         printf("There is no enough money in your account! Your balance is: %.2f euro.\n", users[currentUserIndex].balance);
         return;
     }
 
     // Verify PIN code
-    if (!verifyPin()) return;
+    if (!verifyPin())
+        return;
 
     users[currentUserIndex].balance -= amount;
-    saveUsersToFile(); 
+    saveUsersToFile();
     printf("You have successfully withdraw %.2f euro. New balance: %.2f euro.\n", amount, users[currentUserIndex].balance);
+}
+
+//Function for transfer money to another bank user
+void transferMoney(){
+    char targetAcc[20];
+    char targetFirst[50], targetMiddle[50], targetLast[50];
+    double amount;
+    int targetIndex = -1;
+
+    printf("\n--- Transfer money money to another bank user ---\n");
+    printf("Еnter recipient's bank account number: ");
+    scanf("%s", targetAcc);
+    printf("Enter recipient's First Name: ");
+    scanf("%s", targetFirst);
+    printf("Enter recipient's Middle Name: ");
+    scanf("%s", targetMiddle);
+    printf("Enter recipient's Last Name: ");
+    scanf("%s", targetLast);
+
+    // Search for the recipient in the database
+    for (int i = 0; i < userCount; i++) {
+        if (strcmp(users[i].accountNumber, targetAcc) == 0 &&
+            strcmp(users[i].firstName, targetFirst) == 0 &&
+            strcmp(users[i].middleName, targetMiddle) == 0 &&
+            strcmp(users[i].lastName, targetLast) == 0) {
+            targetIndex = i;
+            break;
+        }
+    }
+
+    if (targetIndex == -1) {
+        printf("ERROR: No such user was found!\n");
+        return;
+    }
+
+    // Can't transfer money to your account
+    if (targetIndex == currentUserIndex) {
+        printf("Don't try to transfer money to your own account!\n");
+        return;
+    }
+
+    printf("Enter amount to transfer: ");
+    scanf("%lf", &amount);
+
+    if (amount > users[currentUserIndex].balance) {
+        printf("You do not have enough money to complete this transfer!\n");
+        return;
+    }
+
+    // Verify PIN code
+    if (!verifyPin())
+        return;
+
+    // Make the transfer
+    users[currentUserIndex].balance -= amount; // Take money from the sender
+    users[targetIndex].balance += amount;      // Transfer money to the recipient
+
+    saveUsersToFile(); // Save new data
+    printf("You have successfully transfer %.2f euro to %s %s.\n", amount, users[targetIndex].firstName, users[targetIndex].lastName);
 
 }
