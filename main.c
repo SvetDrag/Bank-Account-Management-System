@@ -285,8 +285,9 @@ void withdrawMoney()
     printf("You have successfully withdraw %.2f euro. New balance: %.2f euro.\n", amount, users[currentUserIndex].balance);
 }
 
-//Function for transfer money to another bank user
-void transferMoney(){
+// Function for transfer money to another bank user
+void transferMoney()
+{
     char targetAcc[20];
     char targetFirst[50], targetMiddle[50], targetLast[50];
     double amount;
@@ -303,23 +304,27 @@ void transferMoney(){
     scanf("%s", targetLast);
 
     // Search for the recipient in the database
-    for (int i = 0; i < userCount; i++) {
+    for (int i = 0; i < userCount; i++)
+    {
         if (strcmp(users[i].accountNumber, targetAcc) == 0 &&
             strcmp(users[i].firstName, targetFirst) == 0 &&
             strcmp(users[i].middleName, targetMiddle) == 0 &&
-            strcmp(users[i].lastName, targetLast) == 0) {
+            strcmp(users[i].lastName, targetLast) == 0)
+        {
             targetIndex = i;
             break;
         }
     }
 
-    if (targetIndex == -1) {
+    if (targetIndex == -1)
+    {
         printf("ERROR: No such user was found!\n");
         return;
     }
 
     // Can't transfer money to your account
-    if (targetIndex == currentUserIndex) {
+    if (targetIndex == currentUserIndex)
+    {
         printf("Don't try to transfer money to your own account!\n");
         return;
     }
@@ -327,7 +332,8 @@ void transferMoney(){
     printf("Enter amount to transfer: ");
     scanf("%lf", &amount);
 
-    if (amount > users[currentUserIndex].balance) {
+    if (amount > users[currentUserIndex].balance)
+    {
         printf("You do not have enough money to complete this transfer!\n");
         return;
     }
@@ -342,5 +348,23 @@ void transferMoney(){
 
     saveUsersToFile(); // Save new data
     printf("You have successfully transfer %.2f euro to %s %s.\n", amount, users[targetIndex].firstName, users[targetIndex].lastName);
+}
 
+// Change PIN code
+void changePin()
+{
+    int newPin;
+
+    printf("\n--- Change PIN code ---");
+
+    // Verify the old PIN code
+    if (!verifyPin())
+        return;
+
+    printf("Enter the new PIN code: ");
+    scanf("%d", &newPin);
+
+    users[currentUserIndex].pin = newPin;
+    saveUsersToFile();
+    printf("Your PIN code was changed successfully!\n");
 }
