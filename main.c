@@ -222,7 +222,7 @@ int verifyPin()
 }
 
 // Function for register a new user
-void registerUse()
+void registerUser()
 {
     // -- //
     // -- //
@@ -250,7 +250,33 @@ void depositMoney()
 
     // Verify PIN code
     if (!verifyPin()) return;
+
     users[currentUserIndex].balance += amount;
     saveUsersToFile(); // Save the change to data file
-    printf("You have successfully entered %.2f euro. New balance: %.2f евро.\n", amount, users[currentUserIndex].balance);
+    printf("You have successfully entered %.2f euro. New balance: %.2f euro.\n", amount, users[currentUserIndex].balance);
+}
+
+// Function for money withdraw
+void withdrawMoney(){
+    double amount;
+    printf("\nEnter amount to withdraw: ");
+    scanf("%lf", &amount);
+
+    if (amount <= 0){
+        printf("Withdraw amount can only be positive number!");
+        return;
+    }
+
+    if (amount > users[currentUserIndex].balance) {
+        printf("There is no enough money in your account! Your balance is: %.2f euro.\n", users[currentUserIndex].balance);
+        return;
+    }
+
+    // Verify PIN code
+    if (!verifyPin()) return;
+
+    users[currentUserIndex].balance -= amount;
+    saveUsersToFile(); 
+    printf("You have successfully withdraw %.2f euro. New balance: %.2f euro.\n", amount, users[currentUserIndex].balance);
+
 }
