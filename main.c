@@ -50,6 +50,7 @@ int main()
         printf("1. Enter yo your account\n");
         printf("2. Register a new user\n");
         printf("0. Exit\n");
+        printf("\n -> Your choice: ");
         scanf("%d", &startChoice); // Scan the user input and point it to startChoice variable
 
         switch (startChoice)
