@@ -216,7 +216,7 @@ int verifyPin()
     }
     else
     {
-        printf("Грешен PIN код! Операцията е отказана.\n");
+        printf("Wrong PIN code! Bank operation is denied.\n");
         return 0; // PIN code is wrong
     }
 }
