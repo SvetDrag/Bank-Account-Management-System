@@ -302,9 +302,29 @@ void showBalance()
 void depositMoney()
 {
     double amount;
-    printf("\nEnter deposit amount: ");
-    scanf("%lf", &amount);
+    char ch;        // variable for testing the input amount
 
+    printf("\nEnter deposit amount: ");
+
+    // TEST 1: THE INPUT IS DIGIT ONLY
+    if (scanf("%lf", &amount) != 1) {
+        printf("ERROR: Please enter a valid number!\n");
+        while(getchar() != '\n'); // Clear buffer
+        return;
+    }
+    // scanf("%lf", &amount);
+
+    // TEST 2: THERE ARE NO SYMBOLS AFTER THE DIGIT
+    ch = getchar();
+    while (ch != '\n' && ch != EOF) {
+        if (ch != ' ') {
+             printf("ERROR: Invalid characters after the amount!\n");
+             return;
+        }
+        ch = getchar();
+    }
+
+    //TEST 3: THE AMOUNT IS POSITIVE NUMBER
     if (amount <= 0)
     {
         printf("Deposit amount can only be positive number!\n");
@@ -324,9 +344,29 @@ void depositMoney()
 void withdrawMoney()
 {
     double amount;
+    char ch;        // variable for testing the input
     printf("\nEnter amount to withdraw: ");
-    scanf("%lf", &amount);
 
+    // TEST 1: THE INPUT IS DIGIT ONLY
+    if (scanf("%lf", &amount) != 1) {
+        printf("ERROR: Please enter a valid number!\n");
+        while(getchar() != '\n');  // Clear buffer;
+        return;
+    }
+    // scanf("%lf", &amount);
+
+
+    // TEST 2: THERE ARE NO SYMBOLS AFTER THE DIGIT
+    ch = getchar();
+    while (ch != '\n' && ch != EOF) {
+        if (ch != ' ') {
+             printf("ERROR: Invalid characters after the amount!\n");
+             return;
+        }
+        ch = getchar();
+    }
+
+    //TEST 3: THE AMOUNT IS POSITIVE NUMBER
     if (amount <= 0)
     {
         printf("Withdraw amount can only be positive number!");
