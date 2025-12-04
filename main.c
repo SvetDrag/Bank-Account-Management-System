@@ -49,7 +49,7 @@ int main()
     {
         printf("\n === BANK ACCOUNT MANAGEMENT SYSTEM ===\n");
         printf("\n --> MAIN MENU <--\n");
-        printf("1. Enter yo your account\n");
+        printf("1. Login to your account\n");
         printf("2. Register a new user\n");
         printf("0. Exit\n");
         printf("\n -> Your choice: ");
@@ -397,7 +397,7 @@ void transferMoney()
     int targetIndex = -1;
 
     printf("\n--- Transfer money money to another bank user ---\n");
-    printf("Еnter recipient's bank account number: ");
+    printf("Enter recipient's bank account number: ");
     scanf("%s", targetAcc);
     printf("Enter recipient's First Name: ");
     scanf("%s", targetFirst);
