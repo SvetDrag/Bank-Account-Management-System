@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 // Max user accounts that can be created
 #define MAX_USERS 100
@@ -16,7 +17,7 @@ typedef struct
     char lastName[50];      // Last name of the user
     char accountNumber[20]; // Bank account number
     double balance;         // Available funds
-    int pin;                // PIN code of the bank account
+    char pin[7];            // PIN code of the bank account 
 } User;
 
 // --> Global variables <--
@@ -30,6 +31,7 @@ void loadUsersFromFile();
 void saveUsersToFile();
 int login();
 int verifyPin();
+// int isValidPin() !!!
 void registerUser();
 void showBalance();
 void depositMoney();
@@ -53,8 +55,7 @@ int main()
         printf("\n -> Your choice: ");
         scanf("%d", &startChoice); // Scan the user input and point it to startChoice variable
 
-        switch (startChoice)
-        {
+        switch (startChoice){
         case 1:
             // LogIn logic
             if (login())
@@ -144,7 +145,7 @@ void loadUsersFromFile()
                   users[userCount].lastName,
                   users[userCount].accountNumber,
                   &users[userCount].balance,
-                  &users[userCount].pin) != EOF)
+                  users[userCount].pin) != EOF)
     {
         userCount++;
     }
@@ -165,7 +166,7 @@ void saveUsersToFile()
 
     for (int i = 0; i < userCount; i++)
     {
-        fprintf(fp, "%s %s %s %s %.2f %d\n",
+        fprintf(fp, "%s %s %s %s %.2f %s\n",
                 users[i].firstName,
                 users[i].middleName,
                 users[i].lastName,
@@ -181,19 +182,19 @@ void saveUsersToFile()
 int login()
 {
     char inputAcc[20];
-    int inputPin;
+    char inputPin[7];
 
     printf("\n--- LOGIN TO THE SYSTEM ---\n");
     printf("Please enter a bank account number.: ");
     scanf("%s", inputAcc);
     printf("Please enter a PIN code: ");
-    scanf("%d", &inputPin);
+    scanf("%s", inputPin);
 
     // Loop through the user array to find a match
     for (int i = 0; i < userCount; i++)
     {
         // strcmp compare 2 Strings. If return 0 => they are equal.
-        if (strcmp(users[i].accountNumber, inputAcc) == 0 && users[i].pin == inputPin)
+        if (strcmp(users[i].accountNumber, inputAcc) == 0 && strcmp(users[i].pin, inputPin) == 0)
         {
             currentUserIndex = i; // Remember witch user is enter
             printf("You have successfully logged into your account!\n");
@@ -207,11 +208,11 @@ int login()
 // Function for verifying the PIN code before bank operation
 int verifyPin()
 {
-    int pinCheck;
+    char pinCheck[7];
     printf("For confirmation, please enter your PIN code: ");
-    scanf("%d", &pinCheck);
+    scanf("%s", &pinCheck);
 
-    if (pinCheck == users[currentUserIndex].pin)
+    if (strcmp(pinCheck, users[currentUserIndex].pin) == 0)
     {
         return 1; // PIN code is correct (verified)
     }
@@ -222,11 +223,40 @@ int verifyPin()
     }
 }
 
+// Function for validating the PIN (between 4-6 nums)
+int isValidPin(char *pin){
+    int len = strlen(pin);
+
+    // length check
+    if (len < 4 || len > 6){
+        printf("ERROR: PIN must be between 4 nad 6 characters long!\n");
+        return 0;
+    }
+
+    // Check if all characters are numbers
+    for (int i = 0; i < len; i++){
+        if (!isdigit(pin[i])){
+            printf("ERROR: PIN can only consist of numbers!\n");
+            return 0;
+        }
+    }
+
+    return 1;
+}
+
 // Function for register a new user
 void registerUser()
 {
     // -- //
     // -- //
+
+    // do {
+    //     printf("Sazdaite Vashiyat PIN kod (4 do 6 cifri): ");
+    //     scanf("%s", users[userCount].pin);
+    //     // Loop while isValidPin returns 0 (ERROR)
+    // } while (!isValidPin(users[userCount].pin));
+
+
     return;
 }
 
@@ -354,18 +384,20 @@ void transferMoney()
 // Change PIN code
 void changePin()
 {
-    int newPin;
+    char newPin[7];
 
     printf("\n--- Change PIN code ---");
 
     // Verify the old PIN code
-    if (!verifyPin())
-        return;
+    if (!verifyPin()) return;
 
+    do {
     printf("Enter the new PIN code: ");
-    scanf("%d", &newPin);
+    scanf("%s", newPin);
+    } while (!isValidPin(newPin));
 
-    users[currentUserIndex].pin = newPin;
+    strcpy(users[currentUserIndex].pin, newPin);
+
     saveUsersToFile();
     printf("Your PIN code was changed successfully!\n");
 }
