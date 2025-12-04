@@ -139,7 +139,7 @@ void loadUsersFromFile()
 
     userCount = 0;
     // Read each line from the data file until the end of the file is reached (EOF)
-    while (fscanf(fp, "%s %s %s %s %lf %d",
+    while (fscanf(fp, "%s %s %s %s %lf %s",
                   users[userCount].firstName,
                   users[userCount].middleName,
                   users[userCount].lastName,
@@ -210,7 +210,7 @@ int verifyPin()
 {
     char pinCheck[7];
     printf("For confirmation, please enter your PIN code: ");
-    scanf("%s", &pinCheck);
+    scanf("%s", pinCheck);
 
     if (strcmp(pinCheck, users[currentUserIndex].pin) == 0)
     {
@@ -266,7 +266,7 @@ void registerUser()
     // Enter PIN
     do {
     printf("Create a PIN code (4 to 6 digits): ");
-    scanf("%s", &users[userCount].pin);
+    scanf("%s", users[userCount].pin);
     } while (!isValidPin(users[userCount].pin));
 
     // Start balance = 0
