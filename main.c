@@ -31,7 +31,7 @@ void loadUsersFromFile();
 void saveUsersToFile();
 int login();
 int verifyPin();
-// int isValidPin() !!!
+int isValidPin(char *pin);
 void registerUser();
 void showBalance();
 void depositMoney();
