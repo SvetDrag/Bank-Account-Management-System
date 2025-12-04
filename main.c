@@ -247,15 +247,47 @@ int isValidPin(char *pin){
 // Function for register a new user
 void registerUser()
 {
-    // -- //
-    // -- //
+    if (userCount >= MAX_USERS) {
+        printf("ДThe maximum number of registered users has been reached!\n");
+        printf("Contact the Bank's support department!\n");
+        return;
+    }
 
-    // do {
-    //     printf("Sazdaite Vashiyat PIN kod (4 do 6 cifri): ");
-    //     scanf("%s", users[userCount].pin);
-    //     // Loop while isValidPin returns 0 (ERROR)
-    // } while (!isValidPin(users[userCount].pin));
+    printf("\n--- New User Registration ---\n");
+    
+    // Enter Name
+    printf("Enter First Name: ");
+    scanf("%s", users[userCount].firstName);
+    printf("Enter Middle Name: ");
+    scanf("%s", users[userCount].middleName);
+    printf("Enter Last Name: ");
+    scanf("%s", users[userCount].lastName);
+    
+    // Enter PIN
+    do {
+    printf("Create a PIN code (4 to 6 digits): ");
+    scanf("%s", &users[userCount].pin);
+    } while (!isValidPin(users[userCount].pin));
 
+    // Start balance = 0
+    users[userCount].balance = 0.00;
+
+    // --- AUTOMATIC ACCOUNT NUMBER GENERATION ---
+    int nextId = 1000; // Initial value if data file is empty
+    if (userCount > 0) {
+        // Take the last user's number and convert it from text to a number (atoi)
+        int lastId = atoi(users[userCount - 1].accountNumber);
+        nextId = lastId + 1;
+    }
+    // Convert the new number back to text (sprintf)
+    sprintf(users[userCount].accountNumber, "%d", nextId);
+
+    printf("\n--- SUCCESSFUL REGISTRATION ---!\n");
+    printf("Your account number is: %s\n", users[userCount].accountNumber);
+    printf("!REMEMBER IT TO LOGIN TO THE SYSTEM!\n");
+
+    userCount++; // Increasing the number of people
+    saveUsersToFile(); // save the new data file
 
     return;
 }
