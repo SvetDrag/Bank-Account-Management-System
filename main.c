@@ -38,6 +38,8 @@ void depositMoney();
 void withdrawMoney();
 void transferMoney();
 void changePin();
+// обмяна на валута (проверка на курс) - каква валута да се добави - 3 колони
+// балансът - да се види с цифри или звездички
 
 // --> Main function <--
 int main()
