@@ -248,7 +248,7 @@ int isValidPin(char *pin){
 void registerUser()
 {
     if (userCount >= MAX_USERS) {
-        printf("ДThe maximum number of registered users has been reached!\n");
+        printf("The maximum number of registered users has been reached!\n");
         printf("Contact the Bank's support department!\n");
         return;
     }
