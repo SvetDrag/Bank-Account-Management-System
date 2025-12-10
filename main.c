@@ -56,6 +56,7 @@ int main()
         printf("0. Exit\n");
         printf("\n -> Your choice: ");
         scanf("%d", &startChoice); // Scan the user input and point it to startChoice variable
+        
 
         switch (startChoice){
         case 1:
@@ -187,7 +188,7 @@ int login()
     char inputPin[7];
 
     printf("\n--- LOGIN TO THE SYSTEM ---\n");
-    printf("Please enter a bank account number.: ");
+    printf("Please enter a bank account number: ");
     scanf("%s", inputAcc);
     printf("Please enter a PIN code: ");
     scanf("%s", inputPin);
@@ -475,3 +476,11 @@ void changePin()
     saveUsersToFile();
     printf("Your PIN code was changed successfully!\n");
 }
+
+
+// int changeMoney {
+    // printf ("\n-- CHANGE MONEY --\n");
+    
+
+    
+//}
