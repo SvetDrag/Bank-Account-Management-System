@@ -17,7 +17,7 @@ typedef struct
     char lastName[50];      // Last name of the user
     char accountNumber[20]; // Bank account number
     double balance;         // Available funds
-    char pin[7];            // PIN code of the bank account 
+    char pin[7];            // PIN code of the bank account
 } User;
 
 // --> Global variables <--
@@ -56,9 +56,9 @@ int main()
         printf("0. Exit\n");
         printf("\n -> Your choice: ");
         scanf("%d", &startChoice); // Scan the user input and point it to startChoice variable
-        
 
-        switch (startChoice){
+        switch (startChoice)
+        {
         case 1:
             // LogIn logic
             if (login())
@@ -227,18 +227,23 @@ int verifyPin()
 }
 
 // Function for validating the PIN (between 4-6 nums)
-int isValidPin(char *pin){
+// poniter exa
+int isValidPin(char *pin)
+{
     int len = strlen(pin);
 
     // length check
-    if (len < 4 || len > 6){
+    if (len < 4 || len > 6)
+    {
         printf("ERROR: PIN must be between 4 nad 6 characters long!\n");
         return 0;
     }
 
     // Check if all characters are numbers
-    for (int i = 0; i < len; i++){
-        if (!isdigit(pin[i])){
+    for (int i = 0; i < len; i++)
+    {
+        if (!isdigit(pin[i]))
+        {
             printf("ERROR: PIN can only consist of numbers!\n");
             return 0;
         }
@@ -250,14 +255,15 @@ int isValidPin(char *pin){
 // Function for register a new user
 void registerUser()
 {
-    if (userCount >= MAX_USERS) {
+    if (userCount >= MAX_USERS)
+    {
         printf("The maximum number of registered users has been reached!\n");
         printf("Contact the Bank's support department!\n");
         return;
     }
 
     printf("\n--- New User Registration ---\n");
-    
+
     // Enter Name
     printf("Enter First Name: ");
     scanf("%s", users[userCount].firstName);
@@ -265,11 +271,12 @@ void registerUser()
     scanf("%s", users[userCount].middleName);
     printf("Enter Last Name: ");
     scanf("%s", users[userCount].lastName);
-    
+
     // Enter PIN
-    do {
-    printf("Create a PIN code (4 to 6 digits): ");
-    scanf("%s", users[userCount].pin);
+    do
+    {
+        printf("Create a PIN code (4 to 6 digits): ");
+        scanf("%s", users[userCount].pin);
     } while (!isValidPin(users[userCount].pin));
 
     // Start balance = 0
@@ -277,7 +284,8 @@ void registerUser()
 
     // --- AUTOMATIC ACCOUNT NUMBER GENERATION ---
     int nextId = 1000; // Initial value if data file is empty
-    if (userCount > 0) {
+    if (userCount > 0)
+    {
         // Take the last user's number and convert it from text to a number (atoi)
         int lastId = atoi(users[userCount - 1].accountNumber);
         nextId = lastId + 1;
@@ -289,7 +297,7 @@ void registerUser()
     printf("Your account number is: %s\n", users[userCount].accountNumber);
     printf("!REMEMBER IT TO LOGIN TO THE SYSTEM!\n");
 
-    userCount++; // Increasing the number of people
+    userCount++;       // Increasing the number of people
     saveUsersToFile(); // save the new data file
 
     return;
@@ -305,29 +313,33 @@ void showBalance()
 void depositMoney()
 {
     double amount;
-    char ch;        // variable for testing the input amount
+    char ch; // variable for testing the input amount
 
     printf("\nEnter deposit amount: ");
 
     // TEST 1: THE INPUT IS DIGIT ONLY
-    if (scanf("%lf", &amount) != 1) {
+    if (scanf("%lf", &amount) != 1)
+    {
         printf("ERROR: Please enter a valid number!\n");
-        while(getchar() != '\n'); // Clear buffer
+        while (getchar() != '\n')
+            ; // Clear buffer
         return;
     }
     // scanf("%lf", &amount);
 
     // TEST 2: THERE ARE NO SYMBOLS AFTER THE DIGIT
     ch = getchar();
-    while (ch != '\n' && ch != EOF) {
-        if (ch != ' ') {
-             printf("ERROR: Invalid characters after the amount!\n");
-             return;
+    while (ch != '\n' && ch != EOF)
+    {
+        if (ch != ' ')
+        {
+            printf("ERROR: Invalid characters after the amount!\n");
+            return;
         }
         ch = getchar();
     }
 
-    //TEST 3: THE AMOUNT IS POSITIVE NUMBER
+    // TEST 3: THE AMOUNT IS POSITIVE NUMBER
     if (amount <= 0)
     {
         printf("Deposit amount can only be positive number!\n");
@@ -347,29 +359,32 @@ void depositMoney()
 void withdrawMoney()
 {
     double amount;
-    char ch;        // variable for testing the input
+    char ch; // variable for testing the input
     printf("\nEnter amount to withdraw: ");
 
     // TEST 1: THE INPUT IS DIGIT ONLY
-    if (scanf("%lf", &amount) != 1) {
+    if (scanf("%lf", &amount) != 1)
+    {
         printf("ERROR: Please enter a valid number!\n");
-        while(getchar() != '\n');  // Clear buffer;
+        while (getchar() != '\n')
+            ; // Clear buffer;
         return;
     }
     // scanf("%lf", &amount);
 
-
     // TEST 2: THERE ARE NO SYMBOLS AFTER THE DIGIT
     ch = getchar();
-    while (ch != '\n' && ch != EOF) {
-        if (ch != ' ') {
-             printf("ERROR: Invalid characters after the amount!\n");
-             return;
+    while (ch != '\n' && ch != EOF)
+    {
+        if (ch != ' ')
+        {
+            printf("ERROR: Invalid characters after the amount!\n");
+            return;
         }
         ch = getchar();
     }
 
-    //TEST 3: THE AMOUNT IS POSITIVE NUMBER
+    // TEST 3: THE AMOUNT IS POSITIVE NUMBER
     if (amount <= 0)
     {
         printf("Withdraw amount can only be positive number!");
@@ -464,11 +479,13 @@ void changePin()
     printf("\n--- Change PIN code ---");
 
     // Verify the old PIN code
-    if (!verifyPin()) return;
+    if (!verifyPin())
+        return;
 
-    do {
-    printf("Enter the new PIN code: ");
-    scanf("%s", newPin);
+    do
+    {
+        printf("Enter the new PIN code: ");
+        scanf("%s", newPin);
     } while (!isValidPin(newPin));
 
     strcpy(users[currentUserIndex].pin, newPin);
@@ -477,10 +494,7 @@ void changePin()
     printf("Your PIN code was changed successfully!\n");
 }
 
-
 // int changeMoney {
-    // printf ("\n-- CHANGE MONEY --\n");
-    
+// printf ("\n-- CHANGE MONEY --\n");
 
-    
 //}
