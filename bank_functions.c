@@ -106,7 +106,7 @@ int verifyPin()
 }
 
 // Function for validating the PIN (between 4-6 nums)
-// poniter exa
+// poniter 
 int isValidPin(char *pin)
 {
     int len = strlen(pin);
@@ -391,7 +391,7 @@ void exportStatementHTML() {
     FILE *transFile = fopen("transactions.txt", "r"); // Open transaction.txt file
     
     if (fp == NULL) {
-        printf("Greshka pri sazdavane na HTML faila!\n");
+        printf("ERROR: Can't run the HTML file!\n");
         return;
     }
 
@@ -433,8 +433,8 @@ void exportStatementHTML() {
     
     // 1. Header
     fprintf(fp, "  <div class='header'>\n");
-    fprintf(fp, "    <div class='logo'>DragnevBank</div>\n");
-    fprintf(fp, "    <div class='bank-details'>DragnevBank AD<br>Sofia, Bulgaria<br>BIC: DRGNBGSF<br>support@dragnevbank.com</div>\n");
+    fprintf(fp, "    <div class='logo'>Dragnev Bank</div>\n");
+    fprintf(fp, "    <div class='bank-details'>Dragnev Bank AD<br>Varna, Bulgaria<br>support@dragnevbank.com</div>\n");
     fprintf(fp, "  </div>\n");
 
     // 2. Client Info Section
@@ -511,7 +511,7 @@ void exportStatementHTML() {
     fprintf(fp, "    </div>\n");
 
     fprintf(fp, "    <div class='signature-box'>\n");
-    fprintf(fp, "       <strong>Ivan Dragnev</strong><br>\n");
+    fprintf(fp, "       <strong>Svetlozar Dragnev</strong><br>\n");
     fprintf(fp, "       <span class='small-text'>Chief Financial Officer</span>\n");
     fprintf(fp, "    </div>\n");
     
@@ -549,4 +549,31 @@ void logTransaction(int userIndex, const char *type, double amount)
             tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
 
     fclose(fp);
+}
+
+// Function for ciphering the PIN codes in accounts.txt
+// Using CAESER CIPHER (task from cs50)
+void caesarCipher(char *pin, int mode) {
+    int len = strlen(pin);
+    int shift = CAESAR_KEY;
+
+    for (int i = 0; i < len; i++) {
+        // TEST if it is a digit
+        if (isdigit(pin[i])) {
+            // - char to int ('0'-'9' -> 0-9)
+            int digit = pin[i] - '0';
+
+            
+            if (mode == 1) { // ciphering
+                digit = (digit + shift) % 10;
+            } 
+            else if (mode == -1) { // deciphering
+                digit = (digit - shift);
+                if (digit < 0) digit += 10; // If result is negative num
+            }
+
+            // int to char (0 - 9 -> '0'-'9')
+            pin[i] = digit + '0';
+        }
+    }
 }

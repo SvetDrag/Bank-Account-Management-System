@@ -11,6 +11,8 @@
 #define MAX_USERS 100
 // Name of the file with data bases
 #define FILENAME "accounts.txt"
+// Caesar key for the cipher 
+#define CAESAR_KEY 3
 
 // --> Project structure <--
 // Template for every user
@@ -46,5 +48,6 @@ void transferMoney();
 void changePin();
 void exportStatementHTML();
 void logTransaction(int userIndex, const char *type, double amount);
+void caesarCipher(char *pin, int mode);
 
 #endif
