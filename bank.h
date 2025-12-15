@@ -43,5 +43,6 @@ void depositMoney();
 void withdrawMoney();
 void transferMoney();
 void changePin();
+void exportStatementHTML();
 
 #endif

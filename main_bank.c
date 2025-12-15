@@ -34,6 +34,7 @@ int main()
                     printf("3. Transfer to Another User\n");
                     printf("4. Show Balance\n");
                     printf("5. Change PIN\n");
+                    printf("6. Export Bank Statement (.html)\n");
                     printf("0. Exit from the profile (Logout)\n");
                     printf("Your choice: ");
                     scanf("%d", &userChoice);
@@ -55,6 +56,9 @@ int main()
                         break;
                     case 5:
                         changePin();
+                        break;
+                    case 6:
+                        exportStatementHTML();
                         break;
                     case 0:
                         printf("Exit from the profile...\n");
