@@ -5,6 +5,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <time.h>
 
 // Max user accounts that can be created
 #define MAX_USERS 100
@@ -44,5 +45,6 @@ void withdrawMoney();
 void transferMoney();
 void changePin();
 void exportStatementHTML();
+void logTransaction(int userIndex, const char *type, double amount);
 
 #endif

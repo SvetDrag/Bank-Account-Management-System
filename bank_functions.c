@@ -231,6 +231,7 @@ void depositMoney()
 
     users[currentUserIndex].balance += amount;
     saveUsersToFile(); // Save the change to data file
+    logTransaction(currentUserIndex, "DEPOSIT", amount); // log the transaction
     printf("You have successfully entered %.2f euro. New balance: %.2f euro.\n", amount, users[currentUserIndex].balance);
 }
 
@@ -282,6 +283,7 @@ void withdrawMoney()
 
     users[currentUserIndex].balance -= amount;
     saveUsersToFile();
+    logTransaction(currentUserIndex, "WITHDRAW", -amount); // log the transaction
     printf("You have successfully withdraw %.2f euro. New balance: %.2f euro.\n", amount, users[currentUserIndex].balance);
 }
 
@@ -347,10 +349,12 @@ void transferMoney()
     users[targetIndex].balance += amount;      // Transfer money to the recipient
 
     saveUsersToFile(); // Save new data
+    logTransaction(currentUserIndex, "TRANSFER_SENT", -amount); // save lof for sender
+    logTransaction(targetIndex, "TRANSFER_RECEIVED", amount); // save log for recipient
     printf("You have successfully transfer %.2f euro to %s %s.\n", amount, users[targetIndex].firstName, users[targetIndex].lastName);
 }
 
-// Change PIN code
+// Function for Change PIN code
 void changePin()
 {
     char newPin[7];
@@ -378,6 +382,7 @@ void changePin()
 
 //}
 
+// Function for make a bank statement for current user and export it to .html file
 void exportStatementHTML()
 {
     char filename[50];
@@ -391,7 +396,7 @@ void exportStatementHTML()
         return;
     }
 
-    // HTML file stucture 
+    // HTML file stucture
     fprintf(fp, "<!DOCTYPE html>\n<html>\n<head>\n");
 
     // Style css
@@ -420,4 +425,30 @@ void exportStatementHTML()
     fclose(fp);
     printf("\n[SUCCESS] Your bank statement is ready!\n");
     printf("Open file '%s' with your browser.\n", filename);
+}
+
+// Function for creating .txt file with log transactions history
+void logTransaction(int userIndex, const char *type, double amount)
+{
+    FILE *fp = fopen("transactions.txt", "a"); // append to the end of the .txt file
+
+    if (fp == NULL)
+    {
+        printf("ERROR while opening transactions log!\n");
+        return;
+    }
+
+    // Get current time
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+
+    // ACCOUNT | TYPE | AMOUNT | DATE (DD.MM.YYYY)
+
+    fprintf(fp, "%s | %s | %+.2f | %02d.%02d.%d\n",
+            users[userIndex].accountNumber,
+            type,
+            amount,
+            tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
+
+    fclose(fp);
 }

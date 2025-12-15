@@ -58,7 +58,7 @@ int main()
                         changePin();
                         break;
                     case 6:
-                        exportStatementHTML();
+                        void exportStatementHTML();
                         break;
                     case 0:
                         printf("Exit from the profile...\n");
