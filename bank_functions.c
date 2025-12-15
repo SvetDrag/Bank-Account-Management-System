@@ -48,13 +48,17 @@ void saveUsersToFile()
 
     for (int i = 0; i < userCount; i++)
     {
+        char encryptedPin[7];
+        strcpy(encryptedPin, users[i].pin);
+
+        caesarCipher(encryptedPin, 1); // '1' -> ciphering
         fprintf(fp, "%s %s %s %s %.2f %s\n",
                 users[i].firstName,
                 users[i].middleName,
                 users[i].lastName,
                 users[i].accountNumber,
                 users[i].balance,
-                users[i].pin);
+                encryptedPin);
     }
 
     fclose(fp);
