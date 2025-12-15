@@ -29,6 +29,7 @@ void loadUsersFromFile()
                   &users[userCount].balance,
                   users[userCount].pin) != EOF)
     {
+        caesarCipher(users[userCount].pin, -1); // '-1' -> deciphering
         userCount++;
     }
 
