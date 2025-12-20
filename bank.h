@@ -49,5 +49,6 @@ void changePin();
 void exportStatementHTML();
 void logTransaction(int userIndex, const char *type, double amount);
 void caesarCipher(char *pin, int mode);
+int openFile(char *filename);
 
 #endif

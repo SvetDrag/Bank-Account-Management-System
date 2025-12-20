@@ -111,7 +111,7 @@ int verifyPin()
 }
 
 // Function for validating the PIN (between 4-6 nums)
-// poniter 
+// pointer
 int isValidPin(char *pin)
 {
     int len = strlen(pin);
@@ -235,7 +235,7 @@ void depositMoney()
         return;
 
     users[currentUserIndex].balance += amount;
-    saveUsersToFile(); // Save the change to data file
+    saveUsersToFile();                                   // Save the change to data file
     logTransaction(currentUserIndex, "DEPOSIT", amount); // log the transaction
     printf("You have successfully entered %.2f euro. New balance: %.2f euro.\n", amount, users[currentUserIndex].balance);
 }
@@ -353,9 +353,9 @@ void transferMoney()
     users[currentUserIndex].balance -= amount; // Take money from the sender
     users[targetIndex].balance += amount;      // Transfer money to the recipient
 
-    saveUsersToFile(); // Save new data
+    saveUsersToFile();                                          // Save new data
     logTransaction(currentUserIndex, "TRANSFER_SENT", -amount); // save lof for sender
-    logTransaction(targetIndex, "TRANSFER_RECEIVED", amount); // save log for recipient
+    logTransaction(targetIndex, "TRANSFER_RECEIVED", amount);   // save log for recipient
     printf("You have successfully transfer %.2f euro to %s %s.\n", amount, users[targetIndex].firstName, users[targetIndex].lastName);
 }
 
@@ -382,20 +382,17 @@ void changePin()
     printf("Your PIN code was changed successfully!\n");
 }
 
-// int changeMoney {
-// printf ("\n-- CHANGE MONEY --\n");
-
-//}
-
-// Function for make a bank statement for current user and export it to .html file
-void exportStatementHTML() {
+// Function to make a bank statement for current user and export it to .html file
+void exportStatementHTML()
+{
     char filename[50];
     sprintf(filename, "statement_%s.html", users[currentUserIndex].accountNumber);
-    
+
     FILE *fp = fopen(filename, "w");
     FILE *transFile = fopen("transactions.txt", "r"); // Open transaction.txt file
-    
-    if (fp == NULL) {
+
+    if (fp == NULL)
+    {
         printf("ERROR: Can't run the HTML file!\n");
         return;
     }
@@ -405,23 +402,24 @@ void exportStatementHTML() {
     char issueDate[20];
     sprintf(issueDate, "%02d.%02d.%d", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
 
-    // --- HTML HEADER & CSS ---
+    // -> BUILD the HTML file with INTERNAL CSS 
+        // --- HTML HEADER & CSS ---
     fprintf(fp, "<!DOCTYPE html>\n<html lang='bg'>\n<head>\n<meta charset='UTF-8'>\n");
     fprintf(fp, "<title>Bank Statement</title>\n");
     fprintf(fp, "<style>\n");
     fprintf(fp, "  body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #f4f4f4; color: #333; margin: 0; padding: 40px; }\n");
-    fprintf(fp, "  .container { max-width: 800px; margin: 0 auto; background: white; padding: 40px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-top: 5px solid #FF8C00; }\n"); // Оранжев акцент горе
+    fprintf(fp, "  .container { max-width: 800px; margin: 0 auto; background: white; padding: 40px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-top: 5px solid #FF8C00; }\n"); 
     fprintf(fp, "  .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 20px; margin-bottom: 30px; }\n");
     fprintf(fp, "  .logo { font-size: 28px; font-weight: bold; color: #FF8C00; text-transform: uppercase; letter-spacing: 2px; }\n");
     fprintf(fp, "  .bank-details { font-size: 12px; color: #777; text-align: right; }\n");
-    fprintf(fp, "  .client-info { background-color: #fff8f0; padding: 20px; border-left: 4px solid #FF8C00; margin-bottom: 30px; }\n"); // Бледо оранжево
+    fprintf(fp, "  .client-info { background-color: #fff8f0; padding: 20px; border-left: 4px solid #FF8C00; margin-bottom: 30px; }\n"); 
     fprintf(fp, "  .client-info h2 { margin-top: 0; color: #333; font-size: 18px; }\n");
     fprintf(fp, "  .client-info p { margin: 5px 0; font-size: 14px; }\n");
-    
+
     fprintf(fp, "  table { width: 100%%; border-collapse: collapse; margin-bottom: 40px; }\n");
     fprintf(fp, "  th { background-color: #FF8C00; color: white; text-align: left; padding: 12px; font-size: 14px; }\n");
     fprintf(fp, "  td { padding: 12px; border-bottom: 1px solid #ddd; font-size: 14px; }\n");
-    fprintf(fp, "  tr:nth-child(even) { background-color: #f9f9f9; }\n"); // Райе
+    fprintf(fp, "  tr:nth-child(even) { background-color: #f9f9f9; }\n"); 
     fprintf(fp, "  .amount-plus { color: green; font-weight: bold; }\n");
     fprintf(fp, "  .amount-minus { color: red; font-weight: bold; }\n");
 
@@ -432,17 +430,17 @@ void exportStatementHTML() {
     fprintf(fp, "  .small-text { font-size: 12px; color: #999; }\n");
     fprintf(fp, "</style>\n</head>\n<body>\n");
 
-    // --- HTML BODY CONTENT ---
-    
+        // --- HTML BODY CONTENT ---
+
     fprintf(fp, "<div class='container'>\n");
-    
-    // 1. Header
+
+        // 1. Header
     fprintf(fp, "  <div class='header'>\n");
     fprintf(fp, "    <div class='logo'>Dragnev Bank</div>\n");
     fprintf(fp, "    <div class='bank-details'>Dragnev Bank AD<br>Varna, Bulgaria<br>support@dragnevbank.com</div>\n");
     fprintf(fp, "  </div>\n");
 
-    // 2. Client Info Section
+        // 2. Client Info Section
     fprintf(fp, "  <div class='client-info'>\n");
     fprintf(fp, "    <h2>BANK STATEMENT</h2>\n");
     fprintf(fp, "    <p><strong>Client:</strong> %s %s %s</p>\n", users[currentUserIndex].firstName, users[currentUserIndex].middleName, users[currentUserIndex].lastName);
@@ -451,7 +449,7 @@ void exportStatementHTML() {
     fprintf(fp, "    <p><strong>Date of Issue:</strong> %s</p>\n", issueDate);
     fprintf(fp, "  </div>\n");
 
-    // 3. Transactions Table
+        // 3. Transactions Table
     fprintf(fp, "  <h3>Transaction History</h3>\n");
     fprintf(fp, "  <table>\n");
     fprintf(fp, "    <thead>\n");
@@ -465,32 +463,36 @@ void exportStatementHTML() {
     fprintf(fp, "    <tbody>\n");
 
     // Reading log history
-    if (transFile != NULL) {
-        char line[256]; // buffer 
+    if (transFile != NULL)
+    {
+        char line[256]; // buffer
         int counter = 1;
 
-        while (fgets(line, sizeof(line), transFile)) {
-           
+        //safely reads each line of transaction file
+        while (fgets(line, sizeof(line), transFile)) // line == buffer; siezof(line) == max size;  transFile == source file
+        {
+
             char lineCopy[256];
             strcpy(lineCopy, line); // copy with lineCopy -> strok destroy the main string X
 
             char *tokenAcc = strtok(lineCopy, "|");
-            
+
             // while there is still info in .txt file
-            if (tokenAcc != NULL && strstr(tokenAcc, users[currentUserIndex].accountNumber) != NULL) {
-                
-                
+            if (tokenAcc != NULL && strstr(tokenAcc, users[currentUserIndex].accountNumber) != NULL)
+            {
+
                 char *tokenType = strtok(NULL, "|");
                 char *tokenAmount = strtok(NULL, "|");
                 char *tokenDate = strtok(NULL, "|");
 
                 char amountClass[20] = "amount-plus";
-                if (tokenAmount != NULL && strstr(tokenAmount, "-")) {
-                    strcpy(amountClass, "amount-minus"); 
+                if (tokenAmount != NULL && strstr(tokenAmount, "-"))
+                {
+                    strcpy(amountClass, "amount-minus");
                 }
 
-                
-                if (tokenType && tokenAmount && tokenDate) {
+                if (tokenType && tokenAmount && tokenDate)
+                {
                     fprintf(fp, "      <tr>\n");
                     fprintf(fp, "        <td>%d</td>\n", counter++);
                     fprintf(fp, "        <td>%s</td>\n", tokenType);
@@ -501,7 +503,9 @@ void exportStatementHTML() {
             }
         }
         fclose(transFile);
-    } else {
+    }
+    else
+    {
         fprintf(fp, "<tr><td colspan='4'>No transaction history found.</td></tr>");
     }
 
@@ -510,7 +514,7 @@ void exportStatementHTML() {
 
     // 4. Footer
     fprintf(fp, "  <div class='footer'>\n");
-    
+
     fprintf(fp, "    <div class='stamp-box'>\n");
     fprintf(fp, "       <div class='stamp'>Dragnev<br>Bank<br>OFFICIAL</div>\n");
     fprintf(fp, "    </div>\n");
@@ -519,15 +523,18 @@ void exportStatementHTML() {
     fprintf(fp, "       <strong>Svetlozar Dragnev</strong><br>\n");
     fprintf(fp, "       <span class='small-text'>Chief Financial Officer</span>\n");
     fprintf(fp, "    </div>\n");
-    
+
     fprintf(fp, "  </div>\n"); // End footer
-    fprintf(fp, "</div>\n"); // End container
+    fprintf(fp, "</div>\n");   // End container
 
     fprintf(fp, "</body>\n</html>");
     fclose(fp);
 
     printf("\n[SUCCESS] Your bank statement is ready!!\n");
     printf("Open the file '%s' in your browser.\n", filename);
+
+    // invoke function to open .html file
+    openFile(filename);
 }
 
 // Function for creating .txt file with log transactions history
@@ -557,28 +564,58 @@ void logTransaction(int userIndex, const char *type, double amount)
 }
 
 // Function for ciphering the PIN codes in accounts.txt
-// Using CAESER CIPHER (task from cs50)
-void caesarCipher(char *pin, int mode) {
+// Using CAESAR CIPHER (task from cs50)
+void caesarCipher(char *pin, int mode)
+{
     int len = strlen(pin);
     int shift = CAESAR_KEY;
 
-    for (int i = 0; i < len; i++) {
+    for (int i = 0; i < len; i++)
+    {
         // TEST if it is a digit
-        if (isdigit(pin[i])) {
+        if (isdigit(pin[i]))
+        {
             // - char to int ('0'-'9' -> 0-9)
             int digit = pin[i] - '0';
 
-            
-            if (mode == 1) { // ciphering
+            if (mode == 1)
+            { // ciphering
                 digit = (digit + shift) % 10;
-            } 
-            else if (mode == -1) { // deciphering
+            }
+            else if (mode == -1)
+            { // deciphering
                 digit = (digit - shift);
-                if (digit < 0) digit += 10; // If result is negative num
+                if (digit < 0)
+                    digit += 10; // If result is negative num
             }
 
             // int to char (0 - 9 -> '0'-'9')
             pin[i] = digit + '0';
         }
     }
+}
+
+// Function to open the already created bank statement
+// The .html file opens in default browser
+int openFile(char *filename)
+{
+
+#define PROG "start" //macros -> replace 'PROG' with "start"
+// "start" command searches for an existing file with the given name and opens it in the default app.
+
+    long sizeof_prog = strlen(filename) + strlen(PROG) + 2;  //calculate memory => fileNameLength + "start" + space + \0
+    
+    char *program = calloc(sizeof_prog, 1); // allocates dynamicly memory and zeroes it out
+                                            // (1 => 1 byte per char)
+    snprintf(program, sizeof_prog, "%s %s", PROG, filename); //assembles the command => result: "start .\filename.html"
+
+    int rc = system(program); // execute program with it's argument ("start .\filename.html")
+
+    //TEST if result code is != 0
+    if (rc)
+    {
+        printf("Command execution failed with %d\n", rc);
+        return rc;
+    }
+    return 0;
 }
