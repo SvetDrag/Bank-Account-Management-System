@@ -385,6 +385,11 @@ void changePin()
 // Function to make a bank statement for current user and export it to .html file
 void exportStatementHTML()
 {
+
+    if (!verifyPin())
+        return;
+
+        
     char filename[50];
     sprintf(filename, "statement_%s.html", users[currentUserIndex].accountNumber);
 
