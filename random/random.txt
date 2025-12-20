@@ -38,3 +38,8 @@
     
     5. Криптиране на данните - скиране на паролата от accounts.txt
             (ceaser chipher - задача от cs50)
+
+*// int changeMoney {
+*// printf ("\n-- CHANGE MONEY --\n");
+*
+*//}

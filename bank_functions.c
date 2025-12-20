@@ -389,7 +389,7 @@ void exportStatementHTML()
     if (!verifyPin())
         return;
 
-        
+    
     char filename[50];
     sprintf(filename, "statement_%s.html", users[currentUserIndex].accountNumber);
 
