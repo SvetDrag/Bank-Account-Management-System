@@ -394,7 +394,7 @@ void exportStatementHTML()
     sprintf(filename, "statement_%s.html", users[currentUserIndex].accountNumber);
 
     FILE *fp = fopen(filename, "w");
-    FILE *transFile = fopen("transactions.txt", "r"); // Open transaction.txt file
+    FILE *transFile = fopen("data/transactions.txt", "r"); // Open transaction.txt file
 
     if (fp == NULL)
     {
@@ -545,7 +545,7 @@ void exportStatementHTML()
 // Function for creating .txt file with log transactions history
 void logTransaction(int userIndex, const char *type, double amount)
 {
-    FILE *fp = fopen("transactions.txt", "a"); // append to the end of the .txt file
+    FILE *fp = fopen("data/transactions.txt", "a"); // append to the end of the .txt file
 
     if (fp == NULL)
     {

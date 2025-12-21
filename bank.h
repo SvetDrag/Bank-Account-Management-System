@@ -10,7 +10,7 @@
 // Max user accounts that can be created
 #define MAX_USERS 100
 // Name of the file with data bases
-#define FILENAME "accounts.txt"
+#define FILENAME "data/accounts.txt"
 // Caesar key for the cipher 
 #define CAESAR_KEY 3
 

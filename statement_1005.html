@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang='bg'>
+<head>
+<meta charset='UTF-8'>
+<title>Bank Statement</title>
+<style>
+  body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #f4f4f4; color: #333; margin: 0; padding: 40px; }
+  .container { max-width: 800px; margin: 0 auto; background: white; padding: 40px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-top: 5px solid #FF8C00; }
+  .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 20px; margin-bottom: 30px; }
+  .logo { font-size: 28px; font-weight: bold; color: #FF8C00; text-transform: uppercase; letter-spacing: 2px; }
+  .bank-details { font-size: 12px; color: #777; text-align: right; }
+  .client-info { background-color: #fff8f0; padding: 20px; border-left: 4px solid #FF8C00; margin-bottom: 30px; }
+  .client-info h2 { margin-top: 0; color: #333; font-size: 18px; }
+  .client-info p { margin: 5px 0; font-size: 14px; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 40px; }
+  th { background-color: #FF8C00; color: white; text-align: left; padding: 12px; font-size: 14px; }
+  td { padding: 12px; border-bottom: 1px solid #ddd; font-size: 14px; }
+  tr:nth-child(even) { background-color: #f9f9f9; }
+  .amount-plus { color: green; font-weight: bold; }
+  .amount-minus { color: red; font-weight: bold; }
+  .footer { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 50px; page-break-inside: avoid; }
+  .stamp-box { position: relative; width: 150px; height: 150px; }
+  .stamp { border: 3px double #FF8C00; color: #FF8C00; border-radius: 50%; width: 120px; height: 120px; display: flex; align-items: center; justify-content: center; transform: rotate(-15deg); font-weight: bold; text-transform: uppercase; font-size: 14px; text-align: center; opacity: 0.8; }
+  .signature-box { text-align: center; border-top: 1px solid #333; width: 200px; padding-top: 10px; }
+  .small-text { font-size: 12px; color: #999; }
+</style>
+</head>
+<body>
+<div class='container'>
+  <div class='header'>
+    <div class='logo'>Dragnev Bank</div>
+    <div class='bank-details'>Dragnev Bank AD<br>Varna, Bulgaria<br>support@dragnevbank.com</div>
+  </div>
+  <div class='client-info'>
+    <h2>BANK STATEMENT</h2>
+    <p><strong>Client:</strong> Svetlozar Deyanov Dragnev</p>
+    <p><strong>IBAN/Account:</strong> 1005</p>
+    <p><strong>Current Balance:</strong> 205305.20 EUR</p>
+    <p><strong>Date of Issue:</strong> 21.12.2025</p>
+  </div>
+  <h3>Transaction History</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>No.</th>
+        <th>Type</th>
+        <th>Amount</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td> DEPOSIT </td>
+        <td class='amount-plus'> +150684.78  EUR</td>
+        <td> 15.12.2025
+</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td> DEPOSIT </td>
+        <td class='amount-plus'> +36985.78  EUR</td>
+        <td> 15.12.2025
+</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td> DEPOSIT </td>
+        <td class='amount-plus'> +12.26  EUR</td>
+        <td> 15.12.2025
+</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td> TRANSFER_SENT </td>
+        <td class='amount-minus'> -6851.98  EUR</td>
+        <td> 15.12.2025
+</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td> DEPOSIT </td>
+        <td class='amount-plus'> +25000.00  EUR</td>
+        <td> 16.12.2025
+</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td> DEPOSIT </td>
+        <td class='amount-plus'> +14.65  EUR</td>
+        <td> 20.12.2025
+</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td> WITHDRAW </td>
+        <td class='amount-minus'> -34.56  EUR</td>
+        <td> 20.12.2025
+</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td> TRANSFER_SENT </td>
+        <td class='amount-minus'> -450.00  EUR</td>
+        <td> 20.12.2025
+</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td> WITHDRAW </td>
+        <td class='amount-minus'> -12.54  EUR</td>
+        <td> 21.12.2025
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class='footer'>
+    <div class='stamp-box'>
+       <div class='stamp'>Dragnev<br>Bank<br>OFFICIAL</div>
+    </div>
+    <div class='signature-box'>
+       <strong>Svetlozar Dragnev</strong><br>
+       <span class='small-text'>Chief Financial Officer</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>
