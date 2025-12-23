@@ -21,7 +21,7 @@ void loadUsersFromFile()
 
     userCount = 0;
     // Read each line from the data file until the end of the file is reached (EOF)
-    while (fscanf(fp, "%s %s %s %s %lf %s",
+    while (userCount < MAX_USERS && fscanf(fp, "%s %s %s %s %lf %s",
                   users[userCount].firstName,
                   users[userCount].middleName,
                   users[userCount].lastName,
@@ -111,7 +111,6 @@ int verifyPin()
 }
 
 // Function for validating the PIN (between 4-6 nums)
-// pointer
 int isValidPin(char *pin)
 {
     int len = strlen(pin);
@@ -394,7 +393,7 @@ void exportStatementHTML()
     sprintf(filename, "statement_%s.html", users[currentUserIndex].accountNumber);
 
     FILE *fp = fopen(filename, "w");
-    FILE *transFile = fopen("data/transactions.txt", "r"); // Open transaction.txt file
+    FILE *transFile = fopen(LOG_FILENAME, "r"); // Open transaction.txt file
 
     if (fp == NULL)
     {
@@ -545,7 +544,7 @@ void exportStatementHTML()
 // Function for creating .txt file with log transactions history
 void logTransaction(int userIndex, const char *type, double amount)
 {
-    FILE *fp = fopen("data/transactions.txt", "a"); // append to the end of the .txt file
+    FILE *fp = fopen(LOG_FILENAME, "a"); // append to the end of the .txt file
 
     if (fp == NULL)
     {

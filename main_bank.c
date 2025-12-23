@@ -16,6 +16,7 @@ int main()
         printf("\n -> Your choice: ");
         scanf("%d", &startChoice); // Scan the user input and point it to startChoice variable
 
+
         switch (startChoice)
         {
         case 1:
