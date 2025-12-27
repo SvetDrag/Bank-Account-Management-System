@@ -6,3 +6,4 @@ Galya Petkova Denkova 1004 1312.84 3358
 Svetlozar Deyanov Dragnev 1005 205305.20 483907
 Stefan Radoslavov Mirchev 1006 6987.15 564439
 Elitsa Georgieva Ivanova 1007 256.00 2109
+Penka Stoyanova Dimitrova 1008 0.00 2222
