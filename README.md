@@ -19,9 +19,6 @@ The software simulates a core banking system (ATM logic), allowing users to mana
 
 ---
 
-### 📷 Screenshots
----
-
 ## ✨ Key Features
 * **User Management:** Registration system with automatic IBAN generation.
 * **🔐 Secure Authentication:** Login system using Account Number & PIN.
@@ -48,14 +45,17 @@ The project is built using **C** for the backend logic and **HTML/CSS** for docu
 ## 📂 Project Structure
 ```text
 Bank-Account-Management-System/
-├── 📄 main_bank.c          # Entry point (Main menu loop)
-├── 📄 bank_functions.c     # Core logic (Login, Encryption, I/O)
-├── 📄 bank.h               # Header file (Structures & Prototypes)
-├── 📁 data/                # Data storage (Optional organization)
-│   ├── 🔒 accounts.txt     # Encrypted user database
-│   └── 📜 transactions.txt # Transaction history log
-├── 📄 README.md            # Project documentation
-└── 📄 bank_app.exe         # Compiled executable
+├── 📄 main_bank.c             # Entry point (Main menu loop)
+├── 📄 bank_functions.c        # Core logic (Login, Encryption, I/O)
+├── 📄 bank.h                  # Header file (Structures & Prototypes)
+├── 📁 data/                   # Data storage (Optional organization)
+│   ├── 🔒 accounts.txt        # Encrypted user database
+│   └── 📜 transactions.txt    # Transaction history log
+├── 📄 README.md               # Project summary 
+├── 📄 DOCUMENTATION_BG.pdf    # Project documentation
+├── 🔑 LICENSE                 # MIT license
+├── 📄 statement_example.html  # Bank statement example
+└── 📄 bank_app.exe            # Compiled executable
 ```
 
 ## 🚀 How to Run
