@@ -1,9 +1,9 @@
 Ivan Petrov Ivanov 1000 2270.68 4567
 Maria Georgieva Stoyanova 1001 7871.04 7654
 Petar Dimitrov Kolev 1002 519.51 4444
-Georgi Ivanov Nikolov 1003 3500.00 2222
-Galya Petkova Denkova 1004 1312.84 3358
+Georgi Ivanov Nikolov 1003 3712.85 2222
+Galya Petkova Denkova 1004 1024.99 3358
 Svetlozar Deyanov Dragnev 1005 205305.20 483907
 Stefan Radoslavov Mirchev 1006 6987.15 564439
-Elitsa Georgieva Ivanova 1007 256.00 2109
-Penka Stoyanova Dimitrova 1008 0.00 2222
+Elitsa Georgieva Ivanova 1007 456.00 2109
+Penka Stoyanova Dimitrova 1008 302.69 2222
