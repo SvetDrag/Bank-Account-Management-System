@@ -604,8 +604,8 @@ void caesarCipher(char *pin, int mode)
 int openFile(char *filename)
 {
 
-#define PROG "start" //macros -> replace 'PROG' with "start"
-// "start" command searches for an existing file with the given name and opens it in the default app.
+    #define PROG "start" //macros -> replace 'PROG' with "start"
+    // "start" command searches for an existing file with the given name and opens it in the default app.
 
     long sizeof_prog = strlen(filename) + strlen(PROG) + 2;  //calculate memory => fileNameLength + "start" + space + \0
     
